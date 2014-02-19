@@ -22,6 +22,8 @@ List<Stock> buildStocks()
   stocks.add(new Stock("JGR", 200));
   stocks.add(new Stock("VDK", 150));
   stocks.add(new Stock("SAM", 200));
+  stocks.add(new Stock("JGR", 200));
+  stocks.add(new Stock("VDK", 150));
   
   return stocks;
 }

@@ -15,7 +15,8 @@ body {
 }
 
 #exchange {
-  overflow:auto; 
+  overflow: auto; 
+  float: left;
 }
 
 .stock-container {
@@ -40,12 +41,8 @@ body {
   width: 100%;
 }
 
-.stock-initial {
+.stock-initial, .stock-current {
   float: left;
-}
-
-.stock-current {
-  float: right;
 }
 
 .stock-label {
