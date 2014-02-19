@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html ng-app>
+  <head>
+    <meta charset="utf-8">
+    <title>Stockparty</title>
+    <link rel="stylesheet" href="stockparty.css">
+  </head>
+  <body>
+    <div id="header">
+      <h1>The Gudes Gate Index</h1>
+    </div>
+    
+    <div id="exchange" stockexchange>
+      <div class ="stock-container" ng-repeat="stock in exchange.stocks">
+        <div class="stock-name">
+          <span class="stock-label">Name</span>
+          <span class="stock-header">{{ stock.name }}</span>
+        </div>
+        <div class="stock-initial">
+          <span class="stock-label">Open</span>
+          {{ stock.initialPrice }}
+        </div>
+        <!--<div class="stock-previous">
+          <span class="stock-label">Last</span>
+          {{ stock.previous }}
+        </div>-->
+        <div class="stock-current">
+          <span class="stock-label">Current</span>
+          <span class="stock-value">{{ stock.current }}</span>
+        </div>
+      </div>
+    </div>
+
+    <script type="application/dart" src="stockparty.dart"></script>
+    <script src="packages/browser/dart.js"></script>
+  </body>
+</html>

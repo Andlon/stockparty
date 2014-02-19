@@ -1,0 +1,60 @@
+
+body {
+  background-color: #191919;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1em;
+  font-weight: lighter;
+  margin: 15px;
+  color: #ffffff; 
+}
+
+#header {
+  margin: 0px auto;
+}
+
+.stock-container {
+  float: left;
+  border: 1px solid #000000;
+  padding: 15px;
+  font-size: 4em;
+}
+
+.stock-name {  
+  width: 280px;
+  float: left;
+}
+
+.stock-name .stock-label {
+  width: 100%;
+}
+
+.stock-initial .stock-label {
+  width: 100%;
+}
+
+.stock-initial {
+  float: left;
+}
+
+.stock-previous .stock-label {
+  width: 100%;
+}
+
+.stock-previous {
+  float: left;
+}
+
+.stock-current {
+  float: right;
+}
+
+.stock-label {
+  width: 200px;
+  display: inline-block;
+  color: #999999;
+  font-size: 75%;
+}
+
+.stock-current .stock-label {
+  width: 100%;
+}
