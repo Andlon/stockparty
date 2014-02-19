@@ -17,3 +17,5 @@ double rnorm({ double mean: 0.0, double std: 1.0 })
   
   return (Z * std) + mean;
 }
+
+main() { }
