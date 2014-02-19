@@ -2,7 +2,7 @@ import 'package:angular/angular.dart';
 import 'dart:async';
 import 'stat.dart';
 
-const PERIOD = const Duration(seconds: 1);
+const PERIOD = const Duration(seconds: 2);
 const a = 0.01;
 
 // Bootstrap

@@ -1,6 +1,6 @@
 
 body {
-  background-color: #191919;
+  background-color: #151515;
   font-family: 'Roboto', sans-serif;
   font-size: 1em;
   font-weight: lighter;
@@ -17,10 +17,9 @@ body {
   border: 1px solid #000000;
   padding: 15px;
   font-size: 3.5em;
-}
-
-.stock-container-even {
-  background-color: #292929;
+  margin: 10px;
+  background-color: #242424;
+  
 }
 
 .stock-name {  
@@ -37,14 +36,6 @@ body {
 }
 
 .stock-initial {
-  float: left;
-}
-
-.stock-previous .stock-label {
-  width: 100%;
-}
-
-.stock-previous {
   float: left;
 }
 
