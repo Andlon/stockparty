@@ -12,8 +12,8 @@
     </div>
     
     <div id="exchange" stockexchange>
-      <div class ="stock-container" ng-repeat="stock in exchange.stocks">
-        <div class="stock-name">
+      <div class="stock-container" ng-repeat="stock in exchange.stocks" ng-class-even="'stock-container-even'">
+        <div class="stock-name" >
           <span class="stock-label">Name</span>
           <span class="stock-header">{{ stock.name }}</span>
         </div>

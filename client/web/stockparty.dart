@@ -1,8 +1,6 @@
 import 'package:angular/angular.dart';
-import 'package:animation/animation.dart';
 import 'dart:async';
-import 'dart:html';
-import 'stat.dart';
+import '../../common/stat.dart';
 
 const PERIOD = const Duration(seconds: 1);
 const a = 0.01;
@@ -16,11 +14,6 @@ main() => ngBootstrap(module: new StockExchangeModule());
 List<Stock> buildStocks()
 {
   List<Stock> stocks = new List();
-  stocks.add(new Stock("JGR", 200));
-  stocks.add(new Stock("VDK", 150));
-  stocks.add(new Stock("SAM", 200));
-  stocks.add(new Stock("MCALN", 250));
-  stocks.add(new Stock("LAPHR", 200));
   stocks.add(new Stock("JGR", 200));
   stocks.add(new Stock("VDK", 150));
   stocks.add(new Stock("SAM", 200));
@@ -69,13 +62,7 @@ class StockExchangeController {
   
   void notify()
   {
-    var element = querySelector("#exchange");
-    element.
-    var fade = new ElementAnimation(element)
-      ..duration = 150
-      ..properties = {
-                      
-      };
+    
   }
 }
 
