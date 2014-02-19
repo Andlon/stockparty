@@ -1,6 +1,6 @@
 import 'package:angular/angular.dart';
 import 'dart:async';
-import '../../common/stat.dart';
+import 'stat.dart';
 
 const PERIOD = const Duration(seconds: 1);
 const a = 0.01;
