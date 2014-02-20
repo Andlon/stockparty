@@ -1,4 +1,4 @@
-import 'dart:math';
+part of stock;
 
 Random _rnd = new Random();
 

@@ -1,6 +1,6 @@
 import 'package:angular/angular.dart';
 import 'dart:async';
-import 'stat.dart';
+import '../lib/stock.dart';
 
 const PERIOD = const Duration(seconds: 2);
 const a = 0.01;
@@ -19,11 +19,6 @@ List<Stock> buildStocks()
   stocks.add(new Stock("SAM", 200));
   stocks.add(new Stock("MCALN", 250));
   stocks.add(new Stock("LAPHR", 200));
-  stocks.add(new Stock("JGR", 200));
-  stocks.add(new Stock("VDK", 150));
-  stocks.add(new Stock("SAM", 200));
-  stocks.add(new Stock("JGR", 200));
-  stocks.add(new Stock("VDK", 150));
   
   return stocks;
 }
@@ -59,15 +54,16 @@ class StockExchangeController {
       // Generate new price. If it drops below zero, generate another.
       int newPrice;
       do {
-        newPrice = stock.current + rnorm(mean: 0.0, std: a * stock.initialPrice).round();
+        newPrice = stock.current + rnorm(mean: 0.0, std: a * stock.initial).round();
       } while (newPrice < 0);
-      stock.update(newPrice);
+      
+      stock.current = newPrice;
     }
   }
   
   void notify()
   {
-    
+    // Do some animation or something here
   }
 }
 
@@ -75,22 +71,6 @@ class StockExchangeModule extends Module {
   StockExchangeModule()
   {
     type(StockExchangeController);
-  }
-}
-
-class Stock {
-  final String name;
-  final int    initialPrice;
-  List<int>     prices;
-  
-  Stock(this.name, this.initialPrice) { prices = [ initialPrice ]; }
-  
-  int get current => prices.last;
-  int get previous => prices.length > 1 ? prices[prices.length - 2] : current;
-  
-  void update(price)
-  {
-    prices.add(price);
   }
 }
 
