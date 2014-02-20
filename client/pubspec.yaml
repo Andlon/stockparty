@@ -1,6 +1,7 @@
 name: stockparty
-description: A sample web application
 dependencies:
   angular: any
   animation: any
   browser: any
+  http_server: any
+  route: any
