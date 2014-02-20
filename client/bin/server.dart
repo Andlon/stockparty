@@ -5,7 +5,7 @@ import 'package:route/server.dart';
 
 const PORT = 9090;
 
-void handleRequest(HttpRequest request)
+void handleWebSocket(WebSocket socket)
 {
   
 }
@@ -26,5 +26,10 @@ void main() {
     };
     
     vd.serve(router.defaultStream);
+    router.serve('/ws')
+      .transform(new WebSocketTransformer())
+        .listen(handleWebSocket);
   });
+  
+  
 }
