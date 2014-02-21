@@ -38,6 +38,11 @@ body {
   margin: 10px;
   background-color: #242424;
   width: 800px;
+  position: relative;
+  
+  /* Animate fade-in */
+  animation: fadein 500ms;
+  -webkit-animation: fadein 500ms;
 }
 
 .stock-name {  
@@ -67,3 +72,21 @@ body {
 .stock-current .stock-label {
   width: 100%;
 }
+
+/*
+ ANIMATION 
+*/
+
+@keyframes fadein
+{
+0% { opacity: 0; top: -1000px; }
+100% { opacity: 1; top: 0; }
+}
+
+@-webkit-keyframes fadein /* Safari and Chrome */
+{
+0% { opacity: 0; top: -1000px; }
+100% { opacity: 1; top: 0; }
+}
+
+

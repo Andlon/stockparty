@@ -8,7 +8,7 @@ import '../lib/stock.dart';
 
 /* CONFIGURATION */
 const PORT = 9090;
-const PERIOD = const Duration(seconds: 1);
+const PERIOD = const Duration(seconds: 5);
 const a = 0.05;
 const STOCKS = const {
   "JGR": 200,
