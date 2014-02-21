@@ -1,12 +1,22 @@
 
+/* apply a natural box layout model to all elements */
+*, *:before, *:after {
+  -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+}
+
 body {
   background-color: #151515;
   font-family: 'Roboto', sans-serif;
   font-size: 1em;
-  font-weight: lighter;
+  font-weight: 300;
   margin: 15px;
   color: #ffffff; 
-  overflow: auto;
+  overflow: hidden;
+  width: 100%;
+}
+
+.ng-cloak {
+  display: none;
 }
 
 #header h1 {
@@ -16,7 +26,8 @@ body {
 
 #exchange {
   overflow: auto; 
-  float: left;
+  max-width: 1640px;
+  margin: auto;
 }
 
 .stock-container {

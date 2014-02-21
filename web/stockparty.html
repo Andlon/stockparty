@@ -4,6 +4,7 @@
   <head>
     <meta charset="utf-8">
     <title>Stockparty</title>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:100,300,400|Roboto+Condensed:300,400' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="stockparty.css">
   </head>
   <body>
@@ -12,7 +13,7 @@
 <!--     </div> -->
     
     <div id="exchange" stockexchange>
-      <div class="stock-container" ng-repeat="stock in exchange.stocks">
+      <div class="stock-container ng-cloak" ng-repeat="stock in exchange.stocks">
         <div class="stock-name" >
           <span class="stock-label">Name</span>
           <span class="stock-header">{{ stock.name }}</span>
