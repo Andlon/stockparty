@@ -4,12 +4,16 @@
   -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
 }
 
+body, html {
+  margin: 0;
+  padding: 0;
+}
+
 body {
   background-color: #151515;
   font-family: 'Roboto', sans-serif;
   font-size: 1em;
   font-weight: 300;
-  margin: 15px;
   color: #ffffff; 
   overflow: hidden;
   width: 100%;
@@ -19,9 +23,17 @@ body {
   display: none;
 }
 
+#header {
+  background-color: #242424;
+  border-bottom: 1px solid #000000;
+  margin-bottom: 10px;
+  padding: 15px;
+}
+
 #header h1 {
   text-align: center; 
   font-size: 3em;
+  margin: 0;
 }
 
 #exchange {
@@ -65,8 +77,12 @@ body {
 .stock-label {
   width: 200px;
   display: inline-block;
-  color: #999999;
+  color: #ababab;
   font-size: 75%;
+}
+
+.stock-header {
+  width: 100%;
 }
 
 .stock-current .stock-label {
