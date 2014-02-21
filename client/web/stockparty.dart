@@ -1,6 +1,7 @@
 import 'package:angular/angular.dart';
 import 'dart:async';
 import '../lib/stock.dart';
+import 'exchangeclient.dart';
 
 const PERIOD = const Duration(seconds: 2);
 const a = 0.01;
@@ -25,16 +26,18 @@ List<Stock> buildStocks()
 
 /* Implementation below */
 
-@NgController(
-  selector: '[stockexchange]',
-  publishAs: 'exchange')
+@NgController(selector: '[stockexchange]', publishAs: 'exchange')
 class StockExchangeController {
   List<Stock> stocks;
   Timer timer;
+  ExchangeClient exchange;
   
   StockExchangeController() {
     stocks = buildStocks();
-    startTimer();
+    exchange = new ExchangeClient();
+    exchange.connect('ws://${Uri.base.host}:${Uri.base.port}/ws');
+    exchange.onConnected.listen( (e) => print('Connected to Exchange.'));
+    //startTimer();
   }
   
   void startTimer() {
@@ -47,8 +50,7 @@ class StockExchangeController {
     startTimer();
   }
   
-  void updateStocks()
-  {
+  void updateStocks() {
     for (Stock stock in stocks)
     {
       // Generate new price. If it drops below zero, generate another.
@@ -61,8 +63,7 @@ class StockExchangeController {
     }
   }
   
-  void notify()
-  {
+  void notify() {
     // Do some animation or something here
   }
 }

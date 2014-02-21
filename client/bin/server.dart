@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:convert';
 import 'package:http_server/http_server.dart';
 import 'package:route/server.dart';
 import '../lib/stock.dart';
@@ -27,10 +28,28 @@ class StockExchange {
 }
 
 class WebSocketsExchange extends StockExchange {
+  List<WebSocket> _sockets;
+  
   WebSocketsExchange(var stocks) : super(stocks);
   
   void handleConnection(WebSocket socket) {
     print("Got WS connection!");
+    _sockets.add(socket);
+    socket
+      .map((string) => JSON.decode(string))
+      .listen( (json) {
+        // Don't really need to do anything here yet...
+      }, 
+      onDone: () { _sockets.remove(socket); });
+  }
+  
+  void broadcastStocks() {
+    for (WebSocket socket in _sockets)
+    {
+      Map json;
+      json['stocks'] = stocks.map( (element) => element.toJson());
+      socket.add(JSON.encode(json));
+    }
   }
 }
 
