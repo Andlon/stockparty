@@ -68,16 +68,21 @@ class WebSocketsExchange extends StockExchange {
   }
   
   void handleConnection(WebSocket socket) {
-    print("Got WS connection!");
     _sockets.add(socket);
+    print("Client connected. Number of clients: " + _sockets.length.toString());
     socket
       .map((string) => JSON.decode(string))
       .listen( (json) {
         // Don't really need to do anything here yet...
       }, 
-      onDone: () { _sockets.remove(socket); });
+      onDone: () => handleDisconnection(socket));
     
     sendStocks(socket);
+  }
+  
+  void handleDisconnection(WebSocket socket) {
+    _sockets.remove(socket);
+    print("Client disconnected. Number of clients: " + _sockets.length.toString());
   }
   
   void broadcastStocks() {
@@ -110,8 +115,7 @@ void main() {
     vd.jailRoot = false;
     vd.allowDirectoryListing = true; // Disable this
     vd.directoryHandler = (dir, request) {
-      var indexUri = new Uri.file(dir.path).resolve('stockparty.html');
-      print(indexUri.toFilePath());  
+      var indexUri = new Uri.file(dir.path).resolve('stockparty.html');  
       vd.serveFile(new File(indexUri.toFilePath()), request);
     };
     

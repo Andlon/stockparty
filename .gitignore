@@ -1,8 +1,14 @@
 build/
 packages/
+bin/packages
+web/packages
 
 *.dart.js
 *.js_
 *.js.deps
 *.js.map
 *.dart.precompiled.js
+
+# Ignore autosave files
+*~
+*.autosave
