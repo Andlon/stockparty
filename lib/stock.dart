@@ -10,6 +10,8 @@ class Stock {
   
   Stock(this.name, this.initial) { current = initial; }
   
+  num get change => 100 * ((current / initial) - 1);
+  
   Map toJson() {
     return { 'name': name, 'initial': initial, 'current': current };
   }

@@ -72,6 +72,9 @@ body {
 
 .stock-initial, .stock-current {
   float: left;
+  width: 220px;
+  margin-left: 15px;
+  text-align: right;
 }
 
 .stock-label {
@@ -87,6 +90,14 @@ body {
 
 .stock-current .stock-label {
   width: 100%;
+}
+
+.incline {
+  color: #00ff00;
+}
+
+.decline {
+  color: #ff0000;
 }
 
 /*

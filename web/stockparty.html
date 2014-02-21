@@ -19,8 +19,8 @@
           <span class="stock-header">{{ stock.name }}</span>
         </div>
         <div class="stock-initial">
-          <span class="stock-label">Open</span>
-          <span class="stock-value">{{ stock.initial }}</span>
+          <span class="stock-label">Change</span>
+          <span class="stock-value" ng-class="{ incline: (stock.current > stock.initial), decline: (stock.current < stock.initial) }">{{ stock.change | number:2 }}%</span>
         </div>
         <div class="stock-current">
           <span class="stock-label">Current</span>
