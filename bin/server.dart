@@ -13,8 +13,12 @@ const a = 0.05;
 const STOCKS = const {
   "JGR": 200,
   "VDK": 150,
-  "MCALN": 250,
-  "LAPHR": 250
+  "MCALN": 300,
+  "LAPHR": 300,
+  "SAMB": 200,
+  "GINT": 250,
+  "CKRM": 250,
+  "BENR": 300
 };
 
 /* IMPLEMENTATION */
