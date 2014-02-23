@@ -7,9 +7,9 @@ import '../lib/stock.dart';
 //import 'package:route/pattern.dart';
 
 /* CONFIGURATION */
-const PORT = 9090;
+const PORT = 80;
 const PERIOD = const Duration(seconds: 5);
-const a = 0.05;
+const a = 0.02;
 const STOCKS = const {
   "JGR": 200,
   "VDK": 150,
@@ -43,7 +43,8 @@ class StockExchange {
       // Generate new price. If it drops below zero, generate another.
       int newPrice;
       do {
-        newPrice = stock.current + rnorm(mean: 0.0, std: a * stock.initial).round();
+        //newPrice = stock.current + rnorm(mean: 0.0, std: a * stock.initial).round();
+        newPrice = stock.current + rnorm(mean: a * (stock.initial - stock.current), std: a * stock.initial).round();
       } while (newPrice < 0);
       
       stock.current = newPrice;
