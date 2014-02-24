@@ -41,7 +41,7 @@ class StockExchange {
   Timer _timer;
   
   StockExchange(this.stocks) {
-    _timer = new Timer(const Duration(seconds: 0), _handleTick);
+    _startTimer(period: const Duration(seconds: 0));
   }
   
   void updateStocks() {
@@ -65,8 +65,8 @@ class StockExchange {
     _startTimer();
   }
   
-  void _startTimer() {
-    _timer = new Timer(PERIOD, _handleTick);
+  void _startTimer({ period: PERIOD }) {
+    _timer = new Timer(period, _handleTick);
   }
   
   onStocksUpdated() { }
@@ -138,6 +138,4 @@ void main() {
     
     print("Web server running on port " + PORT.toString() + ".");
   });
-  
-  
 }
