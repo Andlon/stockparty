@@ -7,9 +7,11 @@ import '../lib/stock.dart';
 //import 'package:route/pattern.dart';
 
 /* CONFIGURATION */
-const PORT = 80;
+const PORT = 9090;
 const PERIOD = const Duration(seconds: 5);
+const ROUNDTO = 5;
 const a = 0.02;
+const b = a;
 const STOCKS = const {
   "JGR": 200,
   "VDK": 150,
@@ -29,6 +31,11 @@ List<Stock> buildStocks() {
   return stocks;
 }
 
+num roundToMultipleOf(num x, num multipleOf)
+{
+  return (x / multipleOf).round() * multipleOf;
+}
+
 class StockExchange {
   List<Stock> stocks;
   Timer _timer;
@@ -40,11 +47,11 @@ class StockExchange {
   void updateStocks() {
     for (Stock stock in stocks)
     {
-      // Generate new price. If it drops below zero, generate another.
+      // Generate new price. If it drops below zero, generate another. Round to multiples of
       int newPrice;
       do {
-        //newPrice = stock.current + rnorm(mean: 0.0, std: a * stock.initial).round();
-        newPrice = stock.current + rnorm(mean: a * (stock.initial - stock.current), std: a * stock.initial).round();
+        num change = rnorm(mean: b * (stock.initial - stock.current), std: a * stock.initial);
+        newPrice = stock.current + roundToMultipleOf(change, ROUNDTO);
       } while (newPrice < 0);
       
       stock.current = newPrice;
