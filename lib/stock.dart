@@ -9,6 +9,7 @@ class Stock {
   num current;
   
   Stock(this.name, this.initial) { current = initial; }
+  Stock.fromHistory(this.name, this.initial, this.current); 
   
   num get change => 100 * ((current / initial) - 1);
   

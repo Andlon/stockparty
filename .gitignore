@@ -8,6 +8,7 @@ web/packages
 *.js.deps
 *.js.map
 *.dart.precompiled.js
+history.json
 
 # Ignore autosave files
 *~

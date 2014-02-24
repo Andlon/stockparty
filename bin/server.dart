@@ -7,6 +7,7 @@ import '../lib/stock.dart';
 //import 'package:route/pattern.dart';
 
 /* CONFIGURATION */
+const HISTORYFILE = '../history.json';
 const PORT = 9090;
 const PERIOD = const Duration(seconds: 5);
 const ROUNDTO = 5;
@@ -42,14 +43,53 @@ class StockStorage {
    
   StockStorage(filepath) {
     _file = new File(filepath);
+    _history = new Map();
+      
+    if (_file.existsSync()) {
+      _parseFile();
+    }
+  }
+  
+  void _parseFile() {
+    String content = _file.readAsStringSync();
+    _history = JSON.decode(content);
+  }
+  
+  List<Stock> createStocks() {
+    List<Stock> stocks = new List();
+    if (_history.isEmpty) {
+      stocks = buildStocks();
+    }
+    else
+    {
+      _history.forEach( (K, V) {
+        stocks.add(new Stock.fromHistory(K, V.first, V.last));
+      });
+    }
+    
+    return stocks;
+  }  
+  
+  void synchronize() {
+    _file.writeAsStringSync(JSON.encode(_history), mode: FileMode.WRITE, flush: true);
+  }
+  
+  void store(List<Stock> stocks) {
+    stocks.forEach( (e) {
+      List<num> prices = _history.putIfAbsent(e.name, () => new List() );
+      prices.add(e.current);
+    });
   }
 }
 
 class StockExchange {
   List<Stock> stocks;
   Timer _timer;
+  StockStorage _storage;
   
-  StockExchange(this.stocks) {
+  StockExchange() {
+    _storage = new StockStorage(HISTORYFILE);
+    stocks = _storage.createStocks();
     _startTimer(period: const Duration(seconds: 0));
   }
   
@@ -66,7 +106,13 @@ class StockExchange {
       stock.current = newPrice;
     }
     
+    synchronize();
     onStocksUpdated();
+  }
+  
+  void synchronize() {
+    _storage.store(stocks);
+    _storage.synchronize();
   }
   
   void _handleTick() {
@@ -84,7 +130,7 @@ class StockExchange {
 class WebSocketsExchange extends StockExchange {
   List<WebSocket> _sockets;
   
-  WebSocketsExchange(var stocks) : super(stocks) {
+  WebSocketsExchange() {
     _sockets = new List();
   }
   
@@ -126,7 +172,7 @@ class WebSocketsExchange extends StockExchange {
 }
 
 void main() { 
-  WebSocketsExchange exchange = new WebSocketsExchange(buildStocks());
+  WebSocketsExchange exchange = new WebSocketsExchange();
   var webPath = Platform.script.resolve('../web').toFilePath();
   
   HttpServer.bind(InternetAddress.ANY_IP_V4, PORT).then((HttpServer server) {
