@@ -36,6 +36,15 @@ num roundToMultipleOf(num x, num multipleOf)
   return (x / multipleOf).round() * multipleOf;
 }
 
+class StockStorage {
+  Map<String, List<num>> _history;
+  File _file;
+   
+  StockStorage(filepath) {
+    _file = new File(filepath);
+  }
+}
+
 class StockExchange {
   List<Stock> stocks;
   Timer _timer;
