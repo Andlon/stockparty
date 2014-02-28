@@ -8,7 +8,10 @@ web/packages
 *.js.deps
 *.js.map
 *.dart.precompiled.js
+
+# Ignore files containing state or configuration
 history.json
+config.dart
 
 # Ignore autosave files
 *~

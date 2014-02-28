@@ -4,38 +4,30 @@ import 'dart:async';
 import 'package:http_server/http_server.dart';
 import 'package:route/server.dart';
 import '../lib/stock.dart';
-//import 'package:route/pattern.dart';
+import '../config.dart';
 
-/* CONFIGURATION */
-const HISTORYFILE = '../history.json';
-const PORT = 80;
-const PERIOD = const Duration(seconds: 30);
-const ROUNDTO = 5;
-const a = 0.02;
-const b = a;
-const STOCKS = const {
-  "JGR": 100,
-  "SMBC": 100,
-  "TEQ": 150,
-  "BRIACH": 350,
-  "BOW": 350,
-  "VDK": 300,
-  "GT": 300,
-  "CPT": 300
-};
-final DEV = a * STOCKS.values.reduce( (a, b) => a + b ) / STOCKS.length;
+// Use a factor of the mean of the stock prices as the standard deviation
+final DEV = B * STOCKS.values.reduce( (a, b) => a + b ) / STOCKS.length;
+
+// Load history relative to configuration file
+final Uri HISTORYURL = new Uri.file(r"../config.dart", windows: false).resolve(HISTORYFILE);
 
 /* IMPLEMENTATION */
+
+num roundToMultipleOf(num x, num multipleOf)
+{
+  return (x / multipleOf).round() * multipleOf;
+}
+
+num generatePrice(Stock stock) {
+  num change = rnorm(mean: A * (stock.initial - stock.current), std: DEV);
+  return stock.current + roundToMultipleOf(change, ROUNDTO);
+}
 
 List<Stock> buildStocks() {
   List<Stock> stocks = new List();
   STOCKS.forEach((k, v) => stocks.add(new Stock(k, v)));
   return stocks;
-}
-
-num roundToMultipleOf(num x, num multipleOf)
-{
-  return (x / multipleOf).round() * multipleOf;
 }
 
 class StockStorage {
@@ -89,8 +81,9 @@ class StockExchange {
   StockStorage _storage;
   
   StockExchange() {
-    _storage = new StockStorage(HISTORYFILE);
+    _storage = new StockStorage(HISTORYURL.toFilePath(windows: false));
     stocks = _storage.createStocks();
+    synchronize();
     scheduleMicrotask(onStocksUpdated);
     _startTimer();
   }
@@ -101,8 +94,7 @@ class StockExchange {
       // Generate new price. If it drops below zero, generate another. Round to multiples of
       int newPrice;
       do {
-        num change = rnorm(mean: b * (stock.initial - stock.current), std: DEV);
-        newPrice = stock.current + roundToMultipleOf(change, ROUNDTO);
+        newPrice = generatePrice(stock);
       } while (newPrice < 0);
       
       stock.current = newPrice;

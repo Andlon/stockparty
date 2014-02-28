@@ -1,0 +1,34 @@
+
+/* CONFIGURATION */
+
+// File containing historic data
+const HISTORYFILE = 'history.json';
+
+// Port to bind to
+const PORT = 80;
+
+// Stock update period
+const PERIOD = const Duration(seconds: 30);
+
+// Round stock prices to the closest multiple of ROUNDTO
+const ROUNDTO = 5;
+
+// Restoring factor
+const A = 0.05;
+
+// Variability factor
+const B = 0.05;
+
+// Stocks and their initial prices
+const STOCKS = const {
+  "JGR": 100,
+  "SMBC": 100,
+  "TEQ": 150,
+  "BRIACH": 350,
+  "BOW": 350,
+  "VDK": 300,
+  "GT": 300,
+  "CPT": 300
+};
+
+main () { }
