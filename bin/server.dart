@@ -8,21 +8,22 @@ import '../lib/stock.dart';
 
 /* CONFIGURATION */
 const HISTORYFILE = '../history.json';
-const PORT = 9090;
-const PERIOD = const Duration(seconds: 5);
+const PORT = 80;
+const PERIOD = const Duration(seconds: 30);
 const ROUNDTO = 5;
 const a = 0.02;
 const b = a;
 const STOCKS = const {
-  "JGR": 200,
-  "VDK": 150,
-  "MCALN": 300,
-  "LAPHR": 300,
-  "SAMB": 200,
-  "GINT": 250,
-  "CKRM": 250,
-  "BENR": 300
+  "JGR": 100,
+  "SMBC": 100,
+  "TEQ": 150,
+  "BRIACH": 350,
+  "BOW": 350,
+  "VDK": 300,
+  "GT": 300,
+  "CPT": 300
 };
+final DEV = a * STOCKS.values.reduce( (a, b) => a + b ) / STOCKS.length;
 
 /* IMPLEMENTATION */
 
@@ -90,7 +91,8 @@ class StockExchange {
   StockExchange() {
     _storage = new StockStorage(HISTORYFILE);
     stocks = _storage.createStocks();
-    _startTimer(period: const Duration(seconds: 0));
+    scheduleMicrotask(onStocksUpdated);
+    _startTimer();
   }
   
   void updateStocks() {
@@ -99,7 +101,7 @@ class StockExchange {
       // Generate new price. If it drops below zero, generate another. Round to multiples of
       int newPrice;
       do {
-        num change = rnorm(mean: b * (stock.initial - stock.current), std: a * stock.initial);
+        num change = rnorm(mean: b * (stock.initial - stock.current), std: DEV);
         newPrice = stock.current + roundToMultipleOf(change, ROUNDTO);
       } while (newPrice < 0);
       
