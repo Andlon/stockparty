@@ -10,7 +10,7 @@ import '../config.dart';
 final DEV = B * STOCKS.values.reduce( (a, b) => a + b ) / STOCKS.length;
 
 // Load history relative to configuration file
-final Uri HISTORYURL = new Uri.file(r"../config.dart", windows: false).resolve(HISTORYFILE);
+final Uri HISTORYURL = Platform.script.resolve("../config.dart").resolve(HISTORYFILE);
 
 /* IMPLEMENTATION */
 
@@ -34,8 +34,8 @@ class StockStorage {
   Map<String, List<num>> _history;
   File _file;
    
-  StockStorage(filepath) {
-    _file = new File(filepath);
+  StockStorage(uri) {
+    _file = new File.fromUri(uri);
     _history = new Map();
       
     if (_file.existsSync()) {
@@ -81,7 +81,7 @@ class StockExchange {
   StockStorage _storage;
   
   StockExchange() {
-    _storage = new StockStorage(HISTORYURL.toFilePath(windows: false));
+    _storage = new StockStorage(HISTORYURL);
     stocks = _storage.createStocks();
     synchronize();
     scheduleMicrotask(onStocksUpdated);
